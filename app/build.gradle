@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "net.laggedhero.githubclient"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -18,6 +18,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -26,10 +29,11 @@ android {
 
     flavorDimensions "api"
     productFlavors {
-        mock {
+        staging {
             dimension "api"
+            applicationIdSuffix ".staging"
         }
-        retrofit {
+        production {
             dimension "api"
         }
     }
@@ -43,8 +47,8 @@ android {
         jvmTarget = "1.8"
     }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -71,12 +75,12 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
     // Retrofit
-    retrofitImplementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    retrofitImplementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    retrofitImplementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    productionImplementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    productionImplementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    productionImplementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
     // Gson
-    retrofitImplementation "com.google.code.gson:gson:$gsonVersion"
+    productionImplementation "com.google.code.gson:gson:$gsonVersion"
 
     // RxBindings
     implementation "com.jakewharton.rxbinding3:rxbinding-material:$rxbindingVersion"
