@@ -337,7 +337,6 @@ $RECYCLE.BIN/
 /*/local.properties
 /*/out
 /*/*/build
-/*/*/production
 *.swp
 
 # Android Patch
